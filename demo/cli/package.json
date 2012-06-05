@@ -1,0 +1,13 @@
+{
+    "name": "cli-demo",
+    "private": true,
+    "description": "cli demo for rest-sugar-client",
+    "author": "Juho Vepsalainen <bebraw@gmail.com>",
+    "version": "0.1.0",
+
+    "dependencies": {
+        "commander": "== 0.6.1",
+        "render": "== 0.1.1",
+        "funkit": "== 0.3.2"
+    }
+}

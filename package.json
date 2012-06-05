@@ -5,7 +5,7 @@
     "version": "0.1.0",
 
     "dependencies": {
-        "funkit": "== 0.1.9",
+        "funkit": "== 0.3.2",
         "request": "== 2.9.202"
     },
 

@@ -19,7 +19,12 @@ program.
     option('-s --schema', 'Show schema').
     parse(process.argv);
 
-if(program.schema) client.getMeta(URL + '?apikey=' + APIKEY, render.log.ctbn, log);
+if(program.schema) {
+    client.getMeta(URL + '?apikey=' + APIKEY, function(err, d) {
+        if(err) console.log(err);
+        else render.log.ctbn(d);
+    });
+}
 else {
     var resource = program.resource;
     var op = program.operation;
@@ -30,7 +35,9 @@ else {
     if(!resource) quit('Missing resource!');
     if(!op) quit('Missing operation!');
 
-    client.api(URL + '?apikey=' + APIKEY, function(api) {
+    client.api(URL + '?apikey=' + APIKEY, function(err, api) {
+        if(err) return console.log(err);
+
         if(!(resource in api))
             quit('Resource not in API! Should be one of these: ' + Object.keys(api));
         var ar = api[resource];
@@ -38,17 +45,16 @@ else {
         if(!(op in ar))
             quit('Operation not in API! Should be one of these: ' + Object.keys(ar));
 
-        ar[op](query, render.log.ctbn, log);
-    }, log);
+        ar[op](query, function(err, d) {
+            if(err) console.log(err);
+            else render.log.ctbn(d);
+        });
+    });
 }
 
 function QtoOb(q) {
     q = q? q.split('&'): [];
     return funkit.ziptoo(q.map(funkit.partial(funkit.split, '=')));
-}
-
-function log(d) {
-    console.log(d);
 }
 
 function quit(msg) {

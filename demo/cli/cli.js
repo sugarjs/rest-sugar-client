@@ -47,11 +47,6 @@ function QtoOb(q) {
     return funkit.ziptoo(q.map(funkit.partial(funkit.split, '=')));
 }
 
-function showSchema() {
-    console.log('should show schema now');
-    // client.schema(URL + '?apikey=' + APIKEY, function...)
-}
-
 function log(d) {
     console.log(d);
 }

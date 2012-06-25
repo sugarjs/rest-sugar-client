@@ -28,10 +28,8 @@ if(program.schema) {
 else {
     var resource = program.resource;
     var op = program.operation;
-    var query = QtoOb(program.query);
-    query.apikey = APIKEY;
-    query.id = program.id || '';
-
+    var query = client.QtoOb(program.query);
+    query.id = program.id;
 
     client.api(URL + '?apikey=' + APIKEY, function(err, api) {
         if(err) return console.log(err);
@@ -52,11 +50,6 @@ else {
             else render.log.ctbn(d);
         });
     });
-}
-
-function QtoOb(q) {
-    q = q? q.split('&'): [];
-    return funkit.ziptoo(q.map(funkit.partial(funkit.split, '=')));
 }
 
 function quit() {

@@ -32,15 +32,17 @@ else {
     query.apikey = APIKEY;
     query.id = program.id || '';
 
-    if(!resource) quit('Missing resource!');
-    if(!op) quit('Missing operation!');
 
     client.api(URL + '?apikey=' + APIKEY, function(err, api) {
         if(err) return console.log(err);
 
+        if(!resource) quit('Missing resource! Use one of ', Object.keys(api));
+
+        var ar = api[resource];
+        if(!op) quit('Missing operation! Use one of ', Object.keys(ar));
+
         if(!(resource in api))
             quit('Resource not in API! Should be one of these: ' + Object.keys(api));
-        var ar = api[resource];
 
         if(!(op in ar))
             quit('Operation not in API! Should be one of these: ' + Object.keys(ar));
@@ -57,8 +59,8 @@ function QtoOb(q) {
     return funkit.ziptoo(q.map(funkit.partial(funkit.split, '=')));
 }
 
-function quit(msg) {
-    console.log(msg);
+function quit() {
+    console.log.apply(this, arguments);
     process.exit();
 }
 

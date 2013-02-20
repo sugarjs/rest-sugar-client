@@ -2,7 +2,6 @@
 var program = require('commander');
 var render = require('render');
 var client = require('../../lib/rest-sugar-client');
-var funkit = require('funkit');
 
 var VERSION = '0.1.0';
 var APIKEY = 'dummy'; // stash this into env or so

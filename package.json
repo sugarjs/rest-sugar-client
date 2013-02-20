@@ -5,8 +5,9 @@
     "version": "0.2.7",
 
     "dependencies": {
-        "funkit": "== 0.3.2",
-        "request": "== 2.9.202"
+        "funkit": "== 0.7.3",
+        "is-js": "== 0.1.1",
+        "request": "== 2.14.0"
     },
 
     "main": "./lib/rest-sugar-client.js",

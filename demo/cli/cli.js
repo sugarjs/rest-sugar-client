@@ -4,7 +4,7 @@ var render = require('render');
 var client = require('../../lib/rest-sugar-client');
 
 var VERSION = '0.1.0';
-var APIKEY = 'dummy'; // stash this into env or so
+var APIKEY = 'demo'; // stash this into env or so
 var URL = 'http://localhost:8000/api/v1';
 
 console.log('cli demo - ' + VERSION + '\n');
@@ -29,6 +29,8 @@ else {
     var op = program.operation;
     var query = client.QtoOb(program.query);
     query.id = program.id;
+
+    if(!query.id) delete query.id;
 
     client.api(URL + '?apikey=' + APIKEY, function(err, api) {
         if(err) return console.log(err);

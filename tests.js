@@ -37,6 +37,7 @@ function main() {
         res.json(req.body);
     });
 
+    console.log('Running tests!');
     app.listen(3000, function(err) {
         if(err) return console.error(err);
 
@@ -53,6 +54,7 @@ function main() {
                     assert.equal(Object.keys(lib).length, Object.keys(d).length);
                     assert.equal(lib.name, d.name);
 
+                    console.log('Tests done!');
                     process.exit();
                 });
             });

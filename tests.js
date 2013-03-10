@@ -13,6 +13,12 @@ function main() {
     var apiPrefix = '/api';
     var app = express();
 
+    app.configure(function() {
+        app.use(express.methodOverride()); // handles PUT
+        app.use(express.bodyParser()); // handles POST
+        app.use(app.router);
+    });
+
     app.get(apiPrefix, function(req, res) {
         res.json({
             libraries: {}
@@ -20,11 +26,15 @@ function main() {
     });
 
     app.get(apiPrefix + '/libraries', function(req, res) {
-        assert.equal(req.query.method, 'GET');
+        assert.equal(req.method, 'GET');
 
         res.json([{
             name: 'demo library'
         }]);
+    });
+
+    app.post(apiPrefix + '/libraries', function(req, res) {
+        res.json(req.body);
     });
 
     app.listen(3000, function(err) {
@@ -35,8 +45,16 @@ function main() {
 
             api.libraries.get(function(err, d) {
                 if(err) return console.error(err);
+                var lib = {name: 'demo library'};
 
-                process.exit();
+                api.libraries.create(lib, function(err, d) {
+                    if(err) return console.error(err);
+
+                    assert.equal(Object.keys(lib).length, Object.keys(d).length);
+                    assert.equal(lib.name, d.name);
+
+                    process.exit();
+                });
             });
         });
     });

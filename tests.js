@@ -38,7 +38,7 @@ function main() {
     });
 
     console.log('Running tests!');
-    app.listen(3000, function(err) {
+    app.listen(port, function(err) {
         if(err) return console.error(err);
 
         client.api('http://localhost:' + port + apiPrefix, function(err, api) {

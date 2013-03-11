@@ -9,6 +9,7 @@ var client = require('./lib/rest-sugar-client');
 main();
 
 function main() {
+    var host = 'http://localhost';
     var port = 3000;
     var apiPrefix = '/api';
     var app = express();
@@ -41,7 +42,7 @@ function main() {
     app.listen(port, function(err) {
         if(err) return console.error(err);
 
-        client.api('http://localhost:' + port + apiPrefix, function(err, api) {
+        client.api(host + ':' + port + apiPrefix, function(err, api) {
             if(err) return console.error(err);
 
             api.libraries.get(function(err, d) {
